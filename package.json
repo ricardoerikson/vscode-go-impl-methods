@@ -53,7 +53,8 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.165"
+    "@types/lodash": "^4.14.165",
+    "child_process": "^1.0.2"
   },
   "config": {
     "commitizen": {
