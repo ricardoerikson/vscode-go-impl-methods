@@ -11,6 +11,6 @@ export async function provideInterfaces(keyword: string, callback: (inter: strin
         })
         .map((obj) => obj.name)
         .value();
-      callback(interfaces)
+      callback(interfaces);
     });
 }
