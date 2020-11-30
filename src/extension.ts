@@ -10,35 +10,35 @@ import { InterfaceStubsGenerator } from './interfaces-stubs-generator';
 export function activate(context: vscode.ExtensionContext) {
 
   let disposable = vscode.commands.registerCommand('helloworld.helloWorld', () => {
-    let generator = new InterfaceStubsGenerator(vscode.window.activeTextEditor);
-    generator.parse();
-    // const quickPick = vscode.window.createQuickPick();
+    const generator = new InterfaceStubsGenerator(vscode.window.activeTextEditor);
+    const receiver = generator.parse();
+    if (!receiver) {
+      return;
+    }
 
-    // const debounced = _.debounce((value) => {
-    //   console.log('debouncing')
-    //   provideInterfaces(value, (interfaces) => {
-    //     console.log("value changed:", value);
-    //     const items = _.map(interfaces, (label) => ({ label }));
-    //     console.log(items);
-    //     quickPick.items = items;
-    //     // quickPick.show();
-    //   });
-    // }, 500, { trailing: true });
-    // quickPick.onDidChangeValue(value => {
+    const quickPick = vscode.window.createQuickPick();
+    const debounced = _.debounce((value) => {
+      provideInterfaces(value, (interfaces) => {
+        const items = _.map(interfaces, (label) => ({ label }));
+        quickPick.items = items;
+      });
+    }, 400, { trailing: true });
 
-    //   debounced(value);
+    quickPick.onDidChangeValue(value => {
+      debounced(value);
+    });
 
-    // })
-    // quickPick.onDidChangeSelection(selection => {
-    //   console.log("Accept event")
-    //   if (selection[0])
-    //     console.log(selection[0].label)
-    //   quickPick.hide();
-    // });
-    // quickPick.onDidHide(() => {
-    //   quickPick.dispose();
-    // });
-    // quickPick.show();
+    quickPick.onDidChangeSelection(selection => {
+      if (selection[0]) {
+        generator.implement(selection[0].label, receiver);
+      }
+      quickPick.hide();
+    });
+
+    quickPick.onDidHide(() => {
+      quickPick.dispose();
+    });
+    quickPick.show();
   });
 
   context.subscriptions.push(disposable);

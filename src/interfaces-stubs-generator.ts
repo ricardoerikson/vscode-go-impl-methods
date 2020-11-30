@@ -23,27 +23,22 @@ export class InterfaceStubsGenerator {
   parse(): Receiver | undefined {
     const receiver = this.receiver();
     if (!receiver) {
-      vscode.window.showWarningMessage('Receiver is not in the correct format. Examples of receiver format: "f *File", "m MyType", "s string"');
+      vscode.window.showWarningMessage('Receiver is not in the correct format. Examples of receiver format: "f *File", "m MyType", "c CustomType"');
       return;
     }
     return receiver;
   }
 
-  implement(interface_: string): void {
-
-  }
-
-  generate(interface_: string): void {
-    let receiver = this.receiver();
-    if (receiver) {
-      const impl = cp.exec(`impl '${receiver?.name} ${receiver?.type_}' ${interface_}`, (error, stdout, stderr) => {
-        if (error) {
-          vscode.window.showInformationMessage(stderr);
-          return;
-        }
-        console.log(stdout);
+  implement(interface_: string, receiver: Receiver): void {
+    const impl = cp.exec(`impl '${receiver?.name} ${receiver?.type_}' ${interface_}`, (error, stdout, stderr) => {
+      if (error) {
+        vscode.window.showInformationMessage(stderr);
+        return;
+      }
+      this.editor?.edit(editBuilder => {
+        editBuilder.replace(receiver?.range as vscode.Range, stdout);
       });
-    }
+    });
   }
 
 
