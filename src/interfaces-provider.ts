@@ -6,9 +6,6 @@ export async function provideInterfaces(keyword: string, callback: (inter: strin
     .then((objects: any) => {
       const interfaces = _.chain(objects as vscode.SymbolInformation[])
         .filter({ 'kind': vscode.SymbolKind.Interface })
-        .tap((obj) => {
-          console.log(obj);
-        })
         .map((obj) => obj.name)
         .value();
       callback(interfaces);
