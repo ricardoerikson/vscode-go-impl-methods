@@ -16,6 +16,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - name: Install Node.js
       uses: actions/setup-node@v1
       with:
@@ -27,6 +29,8 @@ jobs:
     - run: npm test
       if: runner.os != 'Linux'
     - name: Semantic release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: startsWith(github.ref, 'refs/tags/releases/') != true
       run: npx semantic-release
     - name: Publish
