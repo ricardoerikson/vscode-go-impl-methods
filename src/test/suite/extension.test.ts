@@ -10,6 +10,24 @@ suite('test receiver', () => {
   vscode.window.showInformationMessage('Start all tests.');
   const generator = new InterfaceStubsGenerator(vscode.window.activeTextEditor);
 
+  test('should reject invalid receiver formats', () => {
+    const entries = [
+      '// a * ConcreteImpl',
+      '//a* ConcreteImpl',
+      '//   *a    ConcreteImpl',
+      '// a ConcreteImpl*',
+      '// a* *ConcreteImpl',
+      '// ConcreteImpl',
+      '// a ',
+      'a ConcreteImpl'
+    ];
+    for (const entry of entries) {
+      const matches = generator.findMatches(entry);
+      expect(matches, `matches for entry "${entry}" should be null`).to.be.null;
+    }
+
+  });
+
   test('should accept valid receiver formats', () => {
     const entries = [
       '// a ConcreteImpl',
@@ -22,7 +40,7 @@ suite('test receiver', () => {
     ];
     for (const entry of entries) {
       const matches = generator.findMatches(entry);
-      expect(matches, `Null for entry: "${entry}"`).not.to.be.null;
+      expect(matches, `matches for entry "${entry}" should not be null`).not.to.be.null;
     }
   });
 
