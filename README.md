@@ -1,65 +1,43 @@
-# helloworld README
+# Implementation of Method Stubs for Golang (Go) Interfaces - Visual Studio Code Extension
 
-This is the README for your extension "helloworld". After writing up a brief description, we recommend including the following sections.
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ricardoerikson/vscode-go-impl-methods/build)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/ricardoerikson/vscode-go-impl-methods?sort=semver)](https://github.com/ricardoerikson/vscode-go-impl-methods/releases)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+![GitHub](https://img.shields.io/github/license/ricardoerikson/vscode-go-impl-methods)
+[![Version](https://vsmarketplacebadge.apphb.com/version-short/ricardoerikson.vscode-go-impl-methods.svg
+)](https://marketplace.visualstudio.com/items?itemName=ricardoerikson.vscode-go-impl-methods)
+[![Installs](https://vsmarketplacebadge.apphb.com/installs/ricardoerikson.vscode-go-impl-methods.svg
+)](https://marketplace.visualstudio.com/items?itemName=ricardoerikson.vscode-go-impl-methods)
 
-## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+VS Code extension that automatically generates method stubs for Golang interfaces. Just inform the receiver and the interface. The extension will generate the method stubs.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+First, you need to install the `impl` package as follows:
 
-## Extension Settings
+```
+go get -u github.com/josharian/impl
+```
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## Usage:
+ * Inform the receiver as a comment (see some examples below):
+   * `// mt MyType`
+   * `// mp *MyPointer`
+ * Open the **Command Palette**
+   * `Ctrl+Shift+P` (Linux or Windows)
+   * `Shift+Command+P`(macOS)
+ * Look for *Go: Implement Interface Methods*
+ * Start typing the name of the interface and pick one from the list (ex: `io.Reader`)
+ * Hit Enter!
 
-For example:
+![Usage](img/usage.gif)
 
-This extension contributes the following settings:
+## Author
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+[Ricardo Erikson](https://github.com/ricardoerikon)
 
-## Known Issues
+## Comments
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+The extension is working, but there are a few things to improve. Any suggestions are welcomed. Please, feel free to contribute.
 
 **Enjoy!**

@@ -1,0 +1,17 @@
+func (mStruct MyStruct) Method1() {
+	panic("not implemented") // TODO: Implement
+}
+
+func (mStruct MyStruct) Method2() string {
+	panic("not implemented") // TODO: Implement
+}
+
+func (mStruct MyStruct) Method3() int {
+	panic("not implemented") // TODO: Implement
+}
+
+func (mStruct MyStruct) Method4(a int) string {
+	panic("not implemented") // TODO: Implement
+}
+
+
