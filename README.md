@@ -30,7 +30,7 @@ go get -u github.com/josharian/impl
  * Start typing the name of the interface and pick one from the list (ex: `io.Reader`)
  * Hit Enter!
 
-![Usage](img/usage.gif)
+![Usage](https://github.com/ricardoerikson/vscode-go-impl-methods/blob/main/img/usage.gif)
 
 ## Author
 
