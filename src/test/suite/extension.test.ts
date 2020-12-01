@@ -1,10 +1,11 @@
-import * as assert from 'assert';
-
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
 import * as vscode from 'vscode';
+import * as path from 'path';
 import { expect } from 'chai';
 import { InterfaceStubsGenerator } from '../../interfaces-stubs-generator';
+import { sleep } from './util';
+import { Receiver } from '../../receiver';
 
 suite('test receiver', () => {
   vscode.window.showInformationMessage('Start all tests.');
@@ -75,6 +76,37 @@ suite('test receiver', () => {
   test('should return null when receiver has a leading package name with invalid format', () => {
     const matches = generator.findMatches('// c my.package.Test');
     expect(matches).to.be.null;
+  });
+
+});
+
+suite('end-to-end tests', () => {
+
+  test('should implement interface method stubs', async () => {
+    const testFolderLocation = '../../../../src/test/examples/';
+    const uri = vscode.Uri.file(
+      path.join(__dirname + testFolderLocation + 'main.go')
+    );
+    const document = await vscode.workspace.openTextDocument(uri);
+    const position = new vscode.Position(5, 0);
+    let editor = await vscode.window.showTextDocument(document);
+    await sleep(50);
+    editor.selection = new vscode.Selection(position, position);
+    const generator = new InterfaceStubsGenerator(editor);
+    const receiver = generator.parse();
+    expect(receiver, 'should not be null').not.to.be.null;
+    expect(receiver?.name).to.equal('mStruct');
+    expect(receiver?.type_).to.equal('MyStruct');
+    generator.implement('pkg.MyInterface', receiver as Receiver, async (output) => {
+      await sleep(50);
+      const referenceUri = vscode.Uri.file(
+        path.join(__dirname + testFolderLocation + 'stubs.test')
+      );
+      const expectedOutput = vscode.workspace.openTextDocument(referenceUri);
+      expect(output, (await expectedOutput).getText());
+
+    });
+    vscode.commands.executeCommand('workbench.action.closeActiveEditor');
   });
 
 });

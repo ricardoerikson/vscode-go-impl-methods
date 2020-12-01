@@ -34,7 +34,7 @@ export class InterfaceStubsGenerator {
     return receiver;
   }
 
-  implement(interface_: string, receiver: Receiver): void {
+  implement(interface_: string, receiver: Receiver, callback?: (stubs: string) => void): void {
     const impl = cp.exec(`impl '${receiver?.name} ${receiver?.type_}' ${interface_}`,
       { cwd: dirname((this.editor as vscode.TextEditor).document.fileName) },
       (error, stdout, stderr) => {
@@ -46,11 +46,16 @@ export class InterfaceStubsGenerator {
         }
         const position = this.editor?.selection.active;
         const previousPosition = position?.with(position.line, 0);
+
+
         this.editor?.edit(editBuilder => {
           editBuilder.replace(receiver?.range as vscode.Range, stdout);
           const newPosition = this.editor?.selection.active;
           const newSelection = new vscode.Selection(previousPosition as vscode.Position, newPosition as vscode.Position);
           (this.editor as vscode.TextEditor).selection = newSelection;
+          if (callback) {
+            callback(stdout);
+          }
         });
       });
 
