@@ -7,12 +7,16 @@ export class InterfaceStubsGenerator {
   pattern: RegExp;
 
   constructor(private editor: vscode.TextEditor | undefined) {
-    this.pattern = /^\/\/\s*([a-zA-Z_][a-zA-Z0-9_]*) (\*?(?:[a-zA-Z_][a-zA-Z0-9.]*)*[a-zA-Z_][a-zA-Z0-9]*)$/;
+    this.pattern = /^\/\/\s*([a-zA-Z_][a-zA-Z0-9_]*) (\*?(?:[a-zA-Z_][a-zA-Z0-9.]*)?[a-zA-Z_][a-zA-Z0-9]*)$/;
+  }
+
+  findMatches(line: string): RegExpMatchArray | null {
+    return line.match(this.pattern);
   }
 
   receiver(): Receiver | undefined {
     let line = this.editor?.document.lineAt(this.editor.selection.active.line);
-    let matches = line?.text.trim().match(this.pattern);
+    let matches = this.findMatches(line?.text.trim() as string);
     if (!matches) {
       return undefined;
     }
