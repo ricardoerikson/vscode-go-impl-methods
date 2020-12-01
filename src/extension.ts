@@ -9,7 +9,7 @@ import { InterfaceStubsGenerator } from './interfaces-stubs-generator';
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-  let disposable = vscode.commands.registerCommand('helloworld.helloWorld', () => {
+  let disposable = vscode.commands.registerCommand('goimpl.ImplementInterfaceMethods', () => {
     const generator = new InterfaceStubsGenerator(vscode.window.activeTextEditor);
     const receiver = generator.parse();
     if (!receiver) {
@@ -17,6 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     const quickPick = vscode.window.createQuickPick();
+    quickPick.placeholder = "What interface do you want to implement?";
     const debounced = _.debounce((value) => {
       provideInterfaces(value, (interfaces) => {
         const items = _.map(interfaces, (label) => ({ label }));
