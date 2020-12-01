@@ -39,8 +39,6 @@ export class InterfaceStubsGenerator {
       { cwd: dirname((this.editor as vscode.TextEditor).document.fileName) },
       (error, stdout, stderr) => {
         if (error) {
-          console.log(error);
-          console.log(stderr);
           vscode.window.showInformationMessage(stderr);
           return;
         }
