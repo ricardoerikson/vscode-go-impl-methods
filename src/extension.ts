@@ -9,7 +9,7 @@ import { InterfaceStubsGenerator } from './interfaces-stubs-generator';
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-  let disposable = vscode.commands.registerCommand('helloworld.helloWorld', () => {
+  let disposable = vscode.commands.registerCommand('goimpl.ImplementInterfaceMethods', () => {
     const generator = new InterfaceStubsGenerator(vscode.window.activeTextEditor);
     const receiver = generator.parse();
     if (!receiver) {
