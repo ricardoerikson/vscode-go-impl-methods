@@ -26,8 +26,10 @@ jobs:
       if: runner.os == 'Linux'
     - run: npm test
       if: runner.os != 'Linux'
-    - name: Semantic release
+    - name: Release and publish
       if: matrix.os == 'ubuntu-latest'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        VSCE_PAT: ${{ secrets.VSCE_PAT }}
       run: npx semantic-release
+    - run: npm run deploy

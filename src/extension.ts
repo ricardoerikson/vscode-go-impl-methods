@@ -17,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     const quickPick = vscode.window.createQuickPick();
-    quickPick.placeholder = "What interface do you want to implement?";
+    quickPick.placeholder = "Which interface do you want to implement?";
     const debounced = _.debounce((value) => {
       provideInterfaces(value, (interfaces) => {
         const items = _.map(interfaces, (label) => ({ label }));
