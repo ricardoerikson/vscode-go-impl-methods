@@ -20,16 +20,19 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 10.x
-    - run: npm ci
-    - name: Tests
-      run: xvfb-run -a npm test
+    - name: Install dependencies
+      run: npm ci
+    - name: Tests for Linux
       if: runner.os == 'Linux'
-    - run: npm test
+      run: xvfb-run -a npm test
+    - name : Tests for Windows and macOS
       if: runner.os != 'Linux'
-    - name: Release and publish
+      run: npm test
+    - name: Release and publish (Linux only)
       if: matrix.os == 'ubuntu-latest'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         VSCE_PAT: ${{ secrets.VSCE_PAT }}
-      run: npx semantic-release
-    - run: npm run deploy
+      run: |
+        npx semantic-release
+        npm run deploy
