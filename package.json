@@ -1,11 +1,19 @@
 {
   "name": "vscode-go-impl-methods",
   "publisher": "ricardoerikson",
-  "displayName": "Implementation of Method Stubs for Golang",
+  "displayName": "Generate Method Stubs for Golang Interfaces",
   "description": "Automatically implement interface methods for Golang by using code generation",
   "version": "0.0.0-development",
   "icon": "img/icon.png",
   "license": "SEE LICENSE IN LICENSE",
+  "keywords": [
+    "go",
+    "golang",
+    "interface",
+    "method",
+    "stubs",
+    "generate"
+  ],
   "author": {
     "name": "Ricardo Erikson",
     "email": "ricardo@ricardoerikson.me",
@@ -15,7 +23,8 @@
     "vscode": "^1.51.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Programming Languages"
   ],
   "activationEvents": [
     "onLanguage:go",
