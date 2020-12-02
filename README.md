@@ -11,15 +11,24 @@
 
 VS Code extension that automatically generates method stubs for Golang interfaces. Just inform the receiver and the interface. The extension will generate the method stubs.
 
+![Usage](https://raw.githubusercontent.com/ricardoerikson/vscode-go-impl-methods/main/img/usage.gif)
+
 ## Requirements
 
-First, you need to install the `impl` package as follows:
+First, you will need to have your Go environment correctly configured. The path folder for your Go binaries must also be added to the environment variable `$PATH` in your operating system. Please, find below some guidelines on how to do that in your operating system: 
+  * [Windows](https://github.com/golang/go/wiki/SettingGOPATH), 
+  * [Linux](https://golang.org/doc/gopath_code.html), 
+  * and [macOS](https://golangbyexample.com/understand-etc-paths-pathsd-mac/)
+
+Then, you will need to install the `impl` package as follows:
 
 ```
 go get -u github.com/josharian/impl
 ```
 
-## Usage:
+**Obs**: make sure your `$GOPATH/bin` is in your `$PATH` so that you can access the `impl` binary.
+
+## Usage
  * Inform the receiver as a comment (see some examples below):
    * `// mt MyType`
    * `// mp *MyPointer`
@@ -27,10 +36,8 @@ go get -u github.com/josharian/impl
    * `Ctrl+Shift+P` (Linux and Windows)
    * `Shift+Command+P` (macOS)
  * Look for *Go: Implement Interface Methods*
- * Start typing the name of the interface and pick one from the list (ex: `io.Reader`)
+ * Start typing the name of the interface and pick it from the list (ex: `io.Reader`)
  * Hit Enter!
-
-![Usage](https://raw.githubusercontent.com/ricardoerikson/vscode-go-impl-methods/main/img/usage.gif)
 
 ## Author
 
