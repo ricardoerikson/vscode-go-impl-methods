@@ -34,7 +34,7 @@ go get -u github.com/josharian/impl
 
 ## Author
 
-[Ricardo Erikson](https://github.com/ricardoerikon)
+[Ricardo Erikson](https://github.com/ricardoerikson)
 
 ## Comments
 
