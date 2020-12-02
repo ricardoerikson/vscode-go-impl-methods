@@ -1,4 +1,4 @@
-# Implementation of Method Stubs for Golang (Go) Interfaces - Visual Studio Code Extension
+# Implement Method Stubs for Golang Interfaces - Visual Studio Code Extension
 
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/ricardoerikson/vscode-go-impl-methods/build-and-release/main)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/ricardoerikson/vscode-go-impl-methods?sort=semver)](https://github.com/ricardoerikson/vscode-go-impl-methods/releases)
