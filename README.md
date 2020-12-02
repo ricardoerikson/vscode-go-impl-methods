@@ -24,13 +24,13 @@ go get -u github.com/josharian/impl
    * `// mt MyType`
    * `// mp *MyPointer`
  * Open the **Command Palette**
-   * `Ctrl+Shift+P` (Linux or Windows)
-   * `Shift+Command+P`(macOS)
+   * `Ctrl+Shift+P` (Linux and Windows)
+   * `Shift+Command+P` (macOS)
  * Look for *Go: Implement Interface Methods*
  * Start typing the name of the interface and pick one from the list (ex: `io.Reader`)
  * Hit Enter!
 
-![Usage](https://github.com/ricardoerikson/vscode-go-impl-methods/blob/main/img/usage.gif)
+![Usage](https://raw.githubusercontent.com/ricardoerikson/vscode-go-impl-methods/main/img/usage.gif)
 
 ## Author
 
