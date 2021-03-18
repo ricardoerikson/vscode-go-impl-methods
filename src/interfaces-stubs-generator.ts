@@ -26,8 +26,8 @@ export class InterfaceStubsGenerator {
   parse(): Receiver | undefined {
     const receiver = this.receiver();
     if (!receiver) {
-      vscode.window.showWarningMessage(`Receiver is not in the correct format. 
-      Please, comment the line and use the following format for receiver: 
+      vscode.window.showWarningMessage(`Receiver is not in the correct format.
+      Please, comment the line and use the following format for receiver:
       "f *File", "m MyType", "c CustomType"`);
       return;
     }
@@ -35,28 +35,35 @@ export class InterfaceStubsGenerator {
   }
 
   implement(interface_: string, receiver: Receiver, callback?: (stubs: string) => void): void {
-    const impl = cp.exec(`impl '${receiver?.name} ${receiver?.type_}' ${interface_}`,
-      { cwd: dirname((this.editor as vscode.TextEditor).document.fileName) },
-      (error, stdout, stderr) => {
-        if (error) {
-          vscode.window.showInformationMessage(stderr);
-          return;
-        }
-        const position = this.editor?.selection.active;
-        const previousPosition = position?.with(position.line, 0);
+    vscode.window.withProgress({
+      location: vscode.ProgressLocation.Notification,
+      title: "Generating stub methods..."
+    }, (progress, token) => {
+      return new Promise((resolve) => {
+        const impl = cp.exec(`impl '${receiver?.name} ${receiver?.type_}' ${interface_}`,
+          { cwd: dirname((this.editor as vscode.TextEditor).document.fileName) },
+          (error, stdout, stderr) => {
+            if (error) {
+              vscode.window.showInformationMessage(stderr);
+              return;
+            }
+            const position = this.editor?.selection.active;
+            const previousPosition = position?.with(position.line, 0);
 
 
-        this.editor?.edit(editBuilder => {
-          editBuilder.replace(receiver?.range as vscode.Range, stdout);
-          const newPosition = this.editor?.selection.active;
-          const newSelection = new vscode.Selection(previousPosition as vscode.Position, newPosition as vscode.Position);
-          (this.editor as vscode.TextEditor).selection = newSelection;
-          if (callback) {
-            callback(stdout);
-          }
-        });
+            this.editor?.edit(editBuilder => {
+              editBuilder.replace(receiver?.range as vscode.Range, stdout);
+              const newPosition = this.editor?.selection.active;
+              const newSelection = new vscode.Selection(previousPosition as vscode.Position, newPosition as vscode.Position);
+              (this.editor as vscode.TextEditor).selection = newSelection;
+              if (callback) {
+                callback(stdout);
+              }
+            });
+            resolve(true);
+          });
       });
-
+    });
   }
 
 }
