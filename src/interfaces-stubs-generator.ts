@@ -1,7 +1,7 @@
-import * as vscode from 'vscode';
-import { Receiver } from './receiver';
 import * as cp from 'child_process';
 import { dirname } from 'path';
+import * as vscode from 'vscode';
+import { Receiver } from './receiver';
 
 export class InterfaceStubsGenerator {
   pattern: RegExp;
@@ -40,7 +40,7 @@ export class InterfaceStubsGenerator {
       title: "Generating stub methods..."
     }, (progress, token) => {
       return new Promise((resolve) => {
-        const impl = cp.exec(`impl '${receiver?.name} ${receiver?.type_}' ${interface_}`,
+        const impl = cp.exec(`impl "${receiver?.name} ${receiver?.type_}" ${interface_}`,
           { cwd: dirname((this.editor as vscode.TextEditor).document.fileName) },
           (error, stdout, stderr) => {
             if (error) {
@@ -49,7 +49,6 @@ export class InterfaceStubsGenerator {
             }
             const position = this.editor?.selection.active;
             const previousPosition = position?.with(position.line, 0);
-
 
             this.editor?.edit(editBuilder => {
               editBuilder.replace(receiver?.range as vscode.Range, stdout);
