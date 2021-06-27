@@ -45,7 +45,7 @@ export class InterfaceStubsGenerator {
           (error, stdout, stderr) => {
             if (error) {
               vscode.window.showInformationMessage(stderr);
-              return;
+              return resolve(true);
             }
             const position = this.editor?.selection.active;
             const previousPosition = position?.with(position.line, 0);
